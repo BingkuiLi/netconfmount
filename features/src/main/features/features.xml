@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright © 2016 yovole libingkui and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<features name="odl-netconfmount-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+  <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
+  <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+  <feature name='odl-netconfmount-api' version='${project.version}' description='OpenDaylight :: netconfmount :: api'>
+    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+    <bundle>mvn:com.yovole.odl/netconfmount-api/{{VERSION}}</bundle>
+  </feature>
+  <feature name='odl-netconfmount' version='${project.version}' description='OpenDaylight :: netconfmount'>
+    <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
+    <feature version='${project.version}'>odl-netconfmount-api</feature>
+    <bundle>mvn:com.yovole.odl/netconfmount-impl/{{VERSION}}</bundle>
+  </feature>
+  <feature name='odl-netconfmount-rest' version='${project.version}' description='OpenDaylight :: netconfmount :: REST'>
+    <feature version="${project.version}">odl-netconfmount</feature>
+    <feature version="${restconf.version}">odl-restconf</feature>
+  </feature>
+  <feature name='odl-netconfmount-ui' version='${project.version}' description='OpenDaylight :: netconfmount :: UI'>
+    <feature version="${project.version}">odl-netconfmount-rest</feature>
+    <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
+    <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
+    <feature version="${dlux.version}">odl-dlux-yangui</feature>
+  </feature>
+  <feature name='odl-netconfmount-cli' version='${project.version}' description='OpenDaylight :: netconfmount :: CLI'>
+    <feature version="${project.version}">odl-netconfmount</feature>
+    <bundle>mvn:com.yovole.odl/netconfmount-cli/{{VERSION}}</bundle>
+  </feature>
+
+</features>
